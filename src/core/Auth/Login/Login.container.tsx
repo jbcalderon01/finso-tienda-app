@@ -16,9 +16,11 @@ export const LoginContainer: FC = () => {
             </Box>
             <BoxForm>
                 <Form>
-                    <LogoLight style={{ marginRight: '3rem' }} />
-                    <Title type="light">Bienvenido a Tu Tienda en Casa</Title>
-                    <Title fz="18px" type="light">
+                    <LogoLight height={'199px'} style={{ marginRight: '3rem' }} width={'260px'} />
+                    <Title fz="20px" type="light">
+                        Bienvenido a Tu Tienda en Casa
+                    </Title>
+                    <Title fz="16px" type="light">
                         Ahorro cerca de ti
                     </Title>
                     <Box display="flex" flexDirection="column" gap="1rem" width="100%">
