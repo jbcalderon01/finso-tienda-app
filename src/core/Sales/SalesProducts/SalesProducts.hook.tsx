@@ -11,7 +11,8 @@ export const useSalesProducts = ({ initialProducts }: { initialProducts: TProduc
     const { q, slug } = router.query
 
     // Contexts
-    const { getTotalPrice, shoppingCartProducts, handleChangeProduct, handleDeleteShoppingCartProduct } = useSalesShoppingCart()
+    const { getTotalPrice, shoppingCartProducts, handleChangeProduct, handleDeleteShoppingCartProduct, emptyCart } =
+        useSalesShoppingCart()
 
     // States
     const [products, setProducts] = useState<TProductList>(initialProducts)
@@ -23,6 +24,11 @@ export const useSalesProducts = ({ initialProducts }: { initialProducts: TProduc
 
     const handleOpenModal = (value: boolean) => {
         setIsOpenModal(value)
+    }
+
+    const handleSell = () => {
+        emptyCart()
+        handleOpenModal(false)
     }
 
     useEffect(() => {
@@ -37,6 +43,7 @@ export const useSalesProducts = ({ initialProducts }: { initialProducts: TProduc
         getTotalPrice,
         handleChangeProduct,
         handleDeleteShoppingCartProduct,
+        handleSell,
         shoppingCartProducts,
         products,
         isOpenModal,

@@ -12,6 +12,7 @@ export const SalesProductsContainer: FC = () => {
         handleDeleteShoppingCartProduct,
         products,
         handleOpenModal,
+        handleSell,
         isOpenModal,
     } = useSalesProducts({ initialProducts: PRODUCTS })
 
@@ -51,11 +52,7 @@ export const SalesProductsContainer: FC = () => {
                     onDelete={handleDeleteShoppingCartProduct}
                     onSell={() => handleOpenModal(true)}
                 />
-                <ModalPaymentMethod
-                    open={isOpenModal}
-                    onClose={() => handleOpenModal(false)}
-                    onSell={() => handleOpenModal(false)}
-                />
+                <ModalPaymentMethod open={isOpenModal} onClose={() => handleOpenModal(false)} onSell={handleSell} />
             </FloatSidebarShoppingCart>
         </div>
     )

@@ -16,6 +16,10 @@ export const SalesShoppingCartProvider: FC<{ children: ReactNode }> = ({ childre
         [shoppingCartProducts],
     )
 
+    const emptyCart = () => {
+        setShoppingCartProducts([])
+    }
+
     const handleChangeProduct = (product: TProduct) => {
         if (product.quantity === 0) {
             handleDeleteShoppingCartProduct(product)
@@ -40,7 +44,7 @@ export const SalesShoppingCartProvider: FC<{ children: ReactNode }> = ({ childre
 
     return (
         <SalesShoppingCartContext.Provider
-            value={{ shoppingCartProducts, handleChangeProduct, getTotalPrice, handleDeleteShoppingCartProduct }}
+            value={{ shoppingCartProducts, handleChangeProduct, getTotalPrice, handleDeleteShoppingCartProduct, emptyCart }}
         >
             {children}
         </SalesShoppingCartContext.Provider>

@@ -5,4 +5,5 @@ export type TShoppingCartContext = {
     getTotalPrice: () => number
     handleDeleteShoppingCartProduct: (data: TProduct) => void
     shoppingCartProducts: TProduct[]
+    emptyCart: () => void
 }
