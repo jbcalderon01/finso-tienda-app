@@ -7,4 +7,6 @@ export type TButtonProps = {
     className?: string
     width?: string | number
     theme?: 'light' | 'default'
+    disabled?: boolean
+    br?: string
 }

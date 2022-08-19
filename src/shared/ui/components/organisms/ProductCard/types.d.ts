@@ -4,6 +4,7 @@ export type TProductProps = {
         id: number
         name: string
         price: number
+        quantity: number
         path_image: string
     }
 }

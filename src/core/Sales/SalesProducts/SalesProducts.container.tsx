@@ -1,61 +1,39 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC } from 'react'
 
-import { ProductCard, SidebarShoppingCart } from '../../../shared'
-import { TProduct } from '../../../shared/interfaces'
+import { ModalPaymentMethod, ProductCard, PRODUCTS, SidebarShoppingCart, Title } from '../../../shared'
 
+import { useSalesProducts } from './SalesProducts.hook'
 import { FloatSidebarShoppingCart, SalesProductList } from './SalesProducts.styles'
-
-const PRODUCT_LIST = [
-    { id: 1, price: 1200, path_image: '/images/product-1.png', name: 'Arroz Roa 1000g' },
-    { id: 2, price: 1200, path_image: '/images/product-2.png', name: 'Coca Cola 250ml' },
-    { id: 3, price: 1200, path_image: '/images/product-3.png', name: 'Atún Van Camp 180g' },
-    { id: 4, price: 1200, path_image: '/images/product-4.png', name: 'Maíz tostado la especial 40g' },
-]
-
 export const SalesProductsContainer: FC = () => {
-    // States
-    const [shoppingCartProducts, setShoppingCartProducts] = useState<TProduct[]>([])
-
-    const handleDeleteShoppingCartProduct = (data: TProduct) => {
-        setShoppingCartProducts(shoppingCartProducts.filter(shoppingCartProduct => shoppingCartProduct.id !== data.id))
-    }
-
-    const getTotalPrice = useCallback(
-        (products: TProduct[]) => products.reduce<number>((acc, product) => acc + product.price * product.quantity, 0),
-        [shoppingCartProducts],
-    )
-
-    const handleChangeProduct = (product: TProduct) => {
-        const isExistShoppingCartProduct = shoppingCartProducts.find(shoppingCartProduct => shoppingCartProduct.id === product.id)
-
-        if (product.quantity === 0) {
-            handleDeleteShoppingCartProduct(product)
-
-            return
-        }
-        if (isExistShoppingCartProduct) {
-            setShoppingCartProducts(
-                shoppingCartProducts.map(shoppingCartProduct => {
-                    return shoppingCartProduct.id === isExistShoppingCartProduct.id
-                        ? { ...shoppingCartProduct, quantity: product.quantity }
-                        : shoppingCartProduct
-                }),
-            )
-        } else {
-            setShoppingCartProducts([...shoppingCartProducts, product])
-        }
-    }
+    const {
+        getTotalPrice,
+        handleChangeProduct,
+        shoppingCartProducts,
+        handleDeleteShoppingCartProduct,
+        products,
+        handleOpenModal,
+        isOpenModal,
+    } = useSalesProducts({ initialProducts: PRODUCTS })
 
     return (
         <div>
+            {!products.length && (
+                <Title margin="1rem 0" style={{ textAlign: 'center' }}>
+                    No hay productos disponibles
+                </Title>
+            )}
             <SalesProductList>
-                {PRODUCT_LIST.map((product, i) => (
-                    <ProductCard
-                        key={`product-card-${i}`}
-                        data={product}
-                        onChange={quantity => handleChangeProduct({ ...product, quantity })}
-                    />
-                ))}
+                {products.map((product, i) => {
+                    const shoppingCartQuantity = shoppingCartProducts.find(f => f.id === product.id)?.quantity
+
+                    return (
+                        <ProductCard
+                            key={`product-card-${i}`}
+                            data={{ ...product, quantity: shoppingCartQuantity || 0 }}
+                            onChange={quantity => handleChangeProduct({ ...product, quantity })}
+                        />
+                    )
+                })}
             </SalesProductList>
             <FloatSidebarShoppingCart
                 animate={{ x: '0' }}
@@ -69,8 +47,14 @@ export const SalesProductsContainer: FC = () => {
             >
                 <SidebarShoppingCart
                     products={shoppingCartProducts}
-                    total={getTotalPrice(shoppingCartProducts)}
+                    total={getTotalPrice()}
                     onDelete={handleDeleteShoppingCartProduct}
+                    onSell={() => handleOpenModal(true)}
+                />
+                <ModalPaymentMethod
+                    open={isOpenModal}
+                    onClose={() => handleOpenModal(false)}
+                    onSell={() => handleOpenModal(false)}
                 />
             </FloatSidebarShoppingCart>
         </div>

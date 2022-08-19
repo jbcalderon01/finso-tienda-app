@@ -8,7 +8,7 @@ import { ItemBox } from '../../molecules'
 
 import { BalanceBox, SellBox, SellItemsBox, SidebarShoppingCartWrapper, SidebarTitleBox, TotalBox } from './styles'
 import { TSidebarShoppingCartProps } from './types'
-export const SidebarShoppingCart: FC<TSidebarShoppingCartProps> = ({ products = [], total, onDelete }) => {
+export const SidebarShoppingCart: FC<TSidebarShoppingCartProps> = ({ products = [], total, onDelete, onSell }) => {
     return (
         <SidebarShoppingCartWrapper>
             <BalanceBox>
@@ -30,7 +30,9 @@ export const SidebarShoppingCart: FC<TSidebarShoppingCartProps> = ({ products = 
             </SellItemsBox>
             <SellBox>
                 <InputField label="Celular" />
-                <Button>VENDER</Button>
+                <Button disabled={!products.length} onClick={onSell}>
+                    VENDER
+                </Button>
             </SellBox>
         </SidebarShoppingCartWrapper>
     )

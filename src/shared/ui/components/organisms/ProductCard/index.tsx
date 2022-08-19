@@ -18,7 +18,7 @@ export const ProductCard: FC<TProductProps> = ({ data, onChange }) => {
                     {data.price}
                 </Typography>
             </ProductInfoWrapper>
-            <InputIncremental onChange={onChange} />
+            <InputIncremental value={data.quantity} onChange={onChange} />
         </ProductCardWrapper>
     )
 }

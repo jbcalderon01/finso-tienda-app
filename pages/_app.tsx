@@ -6,6 +6,7 @@ import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { LayoutMain, ThemeProvider } from '../src/shared'
 import { ROUTE_TRANSLATE } from '../src/shared/constants'
 import '../src/shared/ui/theme/GlobalStyle.css'
+import { SalesShoppingCartProvider } from '../src/shared/contexts'
 
 type TLayout = {
     children: ReactNode
@@ -44,15 +45,17 @@ function MyApp({ Component, pageProps, router }: AppPropsWithComponentLayout) {
 
     return (
         <ThemeProvider>
-            <Layout
-                currentPage={currentPage}
-                layout={Component?.layout}
-                mounted={isMounted}
-                pageTitle={ROUTE_TRANSLATE[currentPage]}
-                path={router.pathname}
-            >
-                <Component mounted={isMounted} {...pageProps} />
-            </Layout>
+            <SalesShoppingCartProvider>
+                <Layout
+                    currentPage={currentPage}
+                    layout={Component?.layout}
+                    mounted={isMounted}
+                    pageTitle={ROUTE_TRANSLATE[currentPage]}
+                    path={router.pathname}
+                >
+                    <Component mounted={isMounted} router={router} {...pageProps} />
+                </Layout>
+            </SalesShoppingCartProvider>
         </ThemeProvider>
     )
 }

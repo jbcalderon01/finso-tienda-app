@@ -5,11 +5,24 @@ export const LoginWrapper = styled.div`
     grid-template-columns: 40% 60%;
     height: 100vh;
     overflow: hidden;
+    @media (max-width: 870px) {
+        grid-template-columns: 100%;
+    }
+`
+export const BoxInfo = styled.div`
+    align-items: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (max-width: 870px) {
+        display: none;
+    }
 `
 export const BoxForm = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 1rem;
     justify-content: center;
     background-color: ${({ theme }) => theme.colors.primary};
 `

@@ -1,23 +1,24 @@
 import React, { FC } from 'react'
 
-import { CardWithDetail, CustomLink } from '../../../shared'
+import { CardWithDetail, CustomLink, Title } from '../../../shared'
 
+import { useSalesCategories } from './SaleList.hook'
 import { SalesCategoryList } from './SaleList.styles'
 
-const CATEGORY_LIST = [
-    { title: 'Bebidas y Refresco' },
-    { title: 'Verduras' },
-    { title: 'Frutas' },
-    { title: 'Panadería' },
-    { title: 'Carnes Frías y Embutidos' },
-]
-
 export const SalesContainer: FC = () => {
+    // Hooks
+    const { categories } = useSalesCategories()
+
     return (
         <div>
+            {!categories.length && (
+                <Title margin="1rem 0" style={{ textAlign: 'center' }}>
+                    No hay categorías disponibles
+                </Title>
+            )}
             <SalesCategoryList>
-                {CATEGORY_LIST.map((x, i) => (
-                    <CustomLink key={`category-card-${i}`} href="/sales/fruits">
+                {categories.map((x, i) => (
+                    <CustomLink key={`category-card-${i}`} href={`/sales/${x.slug}`}>
                         <CardWithDetail title={x.title} />
                     </CustomLink>
                 ))}

@@ -1,13 +1,13 @@
 import { faPlus, faSubtract } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Button, Typography } from '../../../atoms'
 
 import { InputIncrementalWrapper } from './styles'
 import { InputIncrementalProps } from './types'
 
-export const InputIncremental: FC<InputIncrementalProps> = ({ onChange }) => {
+export const InputIncremental: FC<InputIncrementalProps> = ({ onChange, value: currentValue }) => {
     // States
     const [value, setValue] = useState<number>(0)
 
@@ -20,6 +20,10 @@ export const InputIncremental: FC<InputIncrementalProps> = ({ onChange }) => {
             setValue(value - 1)
         }
     }
+
+    useEffect(() => {
+        setValue(currentValue || 0)
+    }, [currentValue])
 
     return (
         <InputIncrementalWrapper>

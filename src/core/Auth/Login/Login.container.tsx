@@ -3,17 +3,17 @@ import React, { FC } from 'react'
 
 import { Button, CloudInfo, CustomLink, Image, InputField, LogoLight, Title } from '../../../shared'
 
-import { BoxForm, Form, ImageWrapper, LoginWrapper } from './Login.styles'
+import { BoxForm, BoxInfo, Form, ImageWrapper, LoginWrapper } from './Login.styles'
 
 export const LoginContainer: FC = () => {
     return (
         <LoginWrapper>
-            <Box alignItems="space-between" display="flex" flexDirection="column" justifyContent="center">
+            <BoxInfo>
                 <CloudInfo style={{ margin: '0 auto' }} />
                 <ImageWrapper>
                     <Image height={548} src="/images/shutterstock.png" width={636} />
                 </ImageWrapper>
-            </Box>
+            </BoxInfo>
             <BoxForm>
                 <Form>
                     <LogoLight height={'199px'} style={{ marginRight: '3rem' }} width={'260px'} />
